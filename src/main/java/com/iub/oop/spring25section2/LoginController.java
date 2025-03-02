@@ -18,5 +18,14 @@ public class LoginController
 
     @javafx.fxml.FXML
     public void login(ActionEvent actionEvent) {
+        String username = usernameTextField.getText();
+        String password = passwordTextField.getText();
+
+        if (username.equals("asif") && password.equals("1234")) {
+            errorLabel.setText("Log in successful");
+        }
+        else {
+            errorLabel.setText("Incorrect username or password");
+        }
     }
 }
