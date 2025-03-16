@@ -2,9 +2,15 @@ package com.iub.oop.spring25section2;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +25,7 @@ public class UserManagementController
     @javafx.fxml.FXML
     private Label messageLabel;
 
-    List<User> userList = new ArrayList<>();
+    static List<User> userList = new ArrayList<>();
     @FXML
     private TableView<User> tableView;
     @FXML
@@ -27,7 +33,7 @@ public class UserManagementController
     @FXML
     private TableColumn<User, String> passwordColumn;
     @FXML
-    private TableColumn<User, String> userTypeColumn;
+    private TableColumn<User, Integer> userTypeColumn;
 
     @javafx.fxml.FXML
     public void initialize() {
@@ -41,9 +47,7 @@ public class UserManagementController
         passwordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
         userTypeColumn.setCellValueFactory(new PropertyValueFactory<>("userType"));
 
-        usernameTF.setText("asif");
-        passwordTF.setText("12345678");
-        userTypeCB.setValue("admin");
+        tableView.getItems().addAll(userList);
     }
 
     @javafx.fxml.FXML
@@ -56,10 +60,10 @@ public class UserManagementController
             messageLabel.setText("Please provide all inputs");
             return;
         }
-        if (password.length() < 8) {
-            messageLabel.setText("Password must be at least 8 characters long!");
-            return;
-        }
+//        if (password.length() < 8) {
+//            messageLabel.setText("Password must be at least 8 characters long!");
+//            return;
+//        }
 
         for(User u : userList) {
             if (u.getUsername().equals(username)) {
@@ -77,5 +81,15 @@ public class UserManagementController
         usernameTF.setText("");
         passwordTF.setText("");
         userTypeCB.setValue(null);
+    }
+
+    @FXML
+    public void logOut(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(
+                getClass().getResource("login.fxml")
+        );
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setScene(scene);
     }
 }
