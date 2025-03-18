@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import javax.net.ssl.SSLContext;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +25,6 @@ public class UserManagementController
     private TextField passwordTF;
     @javafx.fxml.FXML
     private Label messageLabel;
-
-    static List<User> userList = new ArrayList<>();
     @FXML
     private TableView<User> tableView;
     @FXML
@@ -34,6 +33,13 @@ public class UserManagementController
     private TableColumn<User, String> passwordColumn;
     @FXML
     private TableColumn<User, Integer> userTypeColumn;
+
+    static List<User> userList = new ArrayList<>();
+    static{
+        userList.add(
+                new User("asif","1234", "admin")
+        );
+    }
 
     @javafx.fxml.FXML
     public void initialize() {
@@ -85,11 +91,6 @@ public class UserManagementController
 
     @FXML
     public void logOut(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(
-                getClass().getResource("login.fxml")
-        );
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.setScene(scene);
+        SceneSwitcher.switchTo("login.fxml", actionEvent);
     }
 }

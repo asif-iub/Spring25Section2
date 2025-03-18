@@ -4,7 +4,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iub.oop.spring25section2.DashboardController">
    <children>
       <Button layoutX="23.0" layoutY="24.0" mnemonicParsing="false" onAction="#goToUserManagement" prefHeight="151.0" prefWidth="177.0" text="User Management" textAlignment="CENTER" wrapText="true">
@@ -12,12 +11,17 @@
             <Font size="24.0" />
          </font>
       </Button>
-      <Button layoutX="216.0" layoutY="24.0" mnemonicParsing="false" prefHeight="151.0" prefWidth="168.0" text="Goal 2" textAlignment="CENTER" wrapText="true">
+      <Button layoutX="216.0" layoutY="24.0" mnemonicParsing="false" onAction="#goToGoal2" prefHeight="151.0" prefWidth="168.0" text="Goal 2" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button layoutX="405.0" layoutY="24.0" mnemonicParsing="false" prefHeight="151.0" prefWidth="168.0" text="Goal 3" textAlignment="CENTER" wrapText="true">
+      <Button layoutX="405.0" layoutY="24.0" mnemonicParsing="false" onAction="#goToGoal3" prefHeight="151.0" prefWidth="168.0" text="Goal 3" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button layoutX="405.0" layoutY="332.0" mnemonicParsing="false" onAction="#logOut" prefHeight="54.0" prefWidth="168.0" text="Log Out" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="24.0" />
          </font>

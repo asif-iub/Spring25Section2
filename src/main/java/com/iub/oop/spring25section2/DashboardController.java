@@ -17,11 +17,21 @@ public class DashboardController
 
     @javafx.fxml.FXML
     public void goToUserManagement(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(
-                getClass().getResource("userManagement.fxml")
-        );
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.setScene(scene);
+        SceneSwitcher.switchTo("userManagement.fxml", actionEvent);
+    }
+
+    @javafx.fxml.FXML
+    public void goToGoal2(ActionEvent actionEvent) throws IOException {
+        SceneSwitcher.switchTo("goal2.fxml", actionEvent);
+    }
+
+    @javafx.fxml.FXML
+    public void goToGoal3(ActionEvent actionEvent) throws IOException {
+        SceneSwitcher.switchTo("goal3.fxml", actionEvent);
+    }
+
+    @javafx.fxml.FXML
+    public void logOut(ActionEvent actionEvent) throws IOException{
+        SceneSwitcher.switchTo("login.fxml", actionEvent);
     }
 }

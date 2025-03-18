@@ -20,10 +20,6 @@ public class LoginController
 
     @javafx.fxml.FXML
     public void initialize() {
-        if (UserManagementController.userList.isEmpty())
-            UserManagementController.userList.add(
-                    new User("asif","1234", "admin")
-            );
     }
 
     @javafx.fxml.FXML
@@ -36,14 +32,7 @@ public class LoginController
                     && password.equals(u.getPassword())) {
                 errorLabel.setText("Log in successful");
                 // scene switching
-                Parent root = FXMLLoader.load(
-                        getClass().getResource("dashboard.fxml")
-                );
-                Scene scene = new Scene(root);
-                Stage stage = (Stage) errorLabel.getScene().getWindow();
-//            Stage stage = new Stage();
-                stage.setScene(scene);
-//            stage.show();
+                SceneSwitcher.switchTo("dashboard.fxml");
             } else {
                 errorLabel.setText("Incorrect username or password");
             }
