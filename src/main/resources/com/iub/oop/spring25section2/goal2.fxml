@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iub.oop.spring25section2.Goal2Controller">
    <children>
@@ -18,10 +19,30 @@
             <Font name="Calibri" size="24.0" />
          </font>
       </Button>
-      <Label layoutX="232.0" layoutY="165.0" text="Goal 2">
+      <Label layoutX="232.0" layoutY="14.0" text="Goal 2">
          <font>
             <Font size="48.0" />
          </font>
       </Label>
+      <TextArea fx:id="textArea" layoutX="14.0" layoutY="84.0" prefHeight="301.0" prefWidth="387.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextArea>
+      <Button layoutX="418.0" layoutY="139.0" mnemonicParsing="false" onAction="#writeToFile" prefHeight="54.0" prefWidth="168.0" text="Write to file" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Label fx:id="label" alignment="CENTER" layoutX="418.0" layoutY="250.0" prefHeight="77.0" prefWidth="168.0" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <CheckBox fx:id="appendCheckBox" layoutX="418.0" layoutY="84.0" mnemonicParsing="false" text="Append">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </CheckBox>
    </children>
 </AnchorPane>
