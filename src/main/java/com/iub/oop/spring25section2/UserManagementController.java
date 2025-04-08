@@ -41,6 +41,8 @@ public class UserManagementController
         );
     }
 
+    public static User userToEdit = null;
+
     @javafx.fxml.FXML
     public void initialize() {
         userTypeCB.getItems().addAll(
@@ -54,6 +56,10 @@ public class UserManagementController
         userTypeColumn.setCellValueFactory(new PropertyValueFactory<>("userType"));
 
         tableView.getItems().addAll(userList);
+
+        if (EditUserController.updateSuccess) {
+            messageLabel.setText("User updated successfully!");
+        }
     }
 
     @javafx.fxml.FXML
@@ -92,5 +98,19 @@ public class UserManagementController
     @FXML
     public void logOut(ActionEvent actionEvent) throws IOException {
         SceneSwitcher.switchTo("login.fxml", actionEvent);
+    }
+
+    @javafx.fxml.FXML
+    public void goBack(ActionEvent actionEvent) throws IOException {
+        SceneSwitcher.switchTo("dashboard.fxml", actionEvent);
+    }
+
+    @FXML
+    public void editUser(ActionEvent actionEvent) throws IOException{
+        User user = tableView.getSelectionModel().getSelectedItem();
+        if (user != null) {
+            userToEdit = user;
+            SceneSwitcher.switchTo("edit-user.fxml", actionEvent);
+        }
     }
 }

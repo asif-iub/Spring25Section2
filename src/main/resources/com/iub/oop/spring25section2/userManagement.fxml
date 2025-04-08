@@ -11,23 +11,23 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="713.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iub.oop.spring25section2.UserManagementController">
    <children>
-      <TextField fx:id="usernameTF" layoutX="27.0" layoutY="32.0" promptText="Username">
+      <TextField fx:id="usernameTF" layoutX="13.0" layoutY="81.0" promptText="Username">
          <font>
             <Font size="18.0" />
          </font>
       </TextField>
-      <TextField fx:id="passwordTF" layoutX="27.0" layoutY="100.0" promptText="Password">
+      <TextField fx:id="passwordTF" layoutX="13.0" layoutY="129.0" promptText="Password">
          <font>
             <Font size="18.0" />
          </font>
       </TextField>
-      <ComboBox fx:id="userTypeCB" layoutX="27.0" layoutY="175.0" prefWidth="150.0" promptText="Select User Type" />
-      <Button layoutX="27.0" layoutY="237.0" mnemonicParsing="false" onAction="#addUser" text="Add User">
+      <ComboBox fx:id="userTypeCB" layoutX="13.0" layoutY="175.0" prefWidth="150.0" promptText="Select User Type" />
+      <Button layoutX="13.0" layoutY="211.0" mnemonicParsing="false" onAction="#addUser" text="Add User">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Label fx:id="messageLabel" layoutX="27.0" layoutY="300.0" prefHeight="81.0" prefWidth="233.0" wrapText="true">
+      <Label fx:id="messageLabel" layoutX="14.0" layoutY="300.0" prefHeight="39.0" prefWidth="277.0" wrapText="true">
          <font>
             <Font size="18.0" />
          </font>
@@ -47,7 +47,17 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button layoutX="27.0" layoutY="341.0" mnemonicParsing="false" onAction="#logOut" text="Log Out">
+      <Button layoutX="18.0" layoutY="339.0" mnemonicParsing="false" onAction="#logOut" text="Log Out">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#goBack" prefHeight="54.0" prefWidth="79.0" text="←" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font name="Calibri" size="24.0" />
+         </font>
+      </Button>
+      <Button layoutX="13.0" layoutY="261.0" mnemonicParsing="false" onAction="#editUser" text="Edit User">
          <font>
             <Font size="18.0" />
          </font>
