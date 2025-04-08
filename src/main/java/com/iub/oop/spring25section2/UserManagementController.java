@@ -57,9 +57,12 @@ public class UserManagementController
 
         tableView.getItems().addAll(userList);
 
-        if (EditUserController.updateSuccess) {
-            messageLabel.setText("User updated successfully!");
-        }
+//        if (EditUserController.updateSuccess) {
+//            messageLabel.setText("User updated successfully!");
+//        }
+//        else {
+//            messageLabel.setText("Update cancelled!");
+//        }
     }
 
     @javafx.fxml.FXML
@@ -109,8 +112,18 @@ public class UserManagementController
     public void editUser(ActionEvent actionEvent) throws IOException{
         User user = tableView.getSelectionModel().getSelectedItem();
         if (user != null) {
-            userToEdit = user;
-            SceneSwitcher.switchTo("edit-user.fxml", actionEvent);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("edit-user.fxml"));
+            Parent root = loader.load();
+
+            EditUserController controller = loader.getController();
+            controller.setUser(user);
+
+            Stage stage = (Stage) messageLabel.getScene().getWindow();
+            stage.setScene(new Scene(root));
         }
+    }
+
+    public void setMessage(String message) {
+        messageLabel.setText(message);
     }
 }
