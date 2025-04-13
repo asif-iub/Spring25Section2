@@ -10,8 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-import javax.net.ssl.SSLContext;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,12 +56,25 @@ public class UserManagementController
 
         tableView.getItems().addAll(userList);
 
-//        if (EditUserController.updateSuccess) {
-//            messageLabel.setText("User updated successfully!");
-//        }
-//        else {
-//            messageLabel.setText("Update cancelled!");
-//        }
+        readFromFile();
+    }
+
+    private void readFromFile() {
+        try (
+                ObjectInputStream inputStream = new ObjectInputStream(
+                        new FileInputStream("data.bin")
+                );) {
+            User u = (User) inputStream.readObject();
+            messageLabel.setText(u.toString());
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            messageLabel.setText("Invalid file format!");
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            messageLabel.setText("Could not read from file");
+        }
     }
 
     @javafx.fxml.FXML
@@ -125,5 +137,21 @@ public class UserManagementController
 
     public void setMessage(String message) {
         messageLabel.setText(message);
+    }
+
+    @FXML
+    public void saveUserList(ActionEvent actionEvent) {
+        try (
+        ObjectOutputStream outputStream = new ObjectOutputStream(
+                                                new FileOutputStream("data.bin")
+                                          );
+        ){
+            outputStream.writeObject(userList.getFirst());
+            messageLabel.setText("Successfully saved to file.");
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            messageLabel.setText("Could not write to file");
+        }
     }
 }
