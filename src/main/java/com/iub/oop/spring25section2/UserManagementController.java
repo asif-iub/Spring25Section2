@@ -3,7 +3,6 @@ package com.iub.oop.spring25section2;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -14,8 +13,14 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserManagementController
-{
+public class UserManagementController {
+    public static User userToEdit = null;
+    static List<User> userList = new ArrayList<>();
+
+    static {
+        userList.add(new User("asif", "1234", "admin"));
+    }
+
     @javafx.fxml.FXML
     private TextField usernameTF;
     @javafx.fxml.FXML
@@ -33,45 +38,27 @@ public class UserManagementController
     @FXML
     private TableColumn<User, Integer> userTypeColumn;
 
-    static List<User> userList = new ArrayList<>();
-    static{
-        userList.add(
-                new User("asif","1234", "admin")
-        );
-    }
-
-    public static User userToEdit = null;
-
     @javafx.fxml.FXML
     public void initialize() {
-        userTypeCB.getItems().addAll(
-                "admin",
-                "standard",
-                "test"
-        );
+        userTypeCB.getItems().addAll("admin", "standard", "test");
 
         usernameColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
         passwordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
         userTypeColumn.setCellValueFactory(new PropertyValueFactory<>("userType"));
 
-        tableView.getItems().addAll(userList);
+//        tableView.getItems().addAll(userList);
 
-        readFromFile();
+//        readFromFile();
     }
 
     private void readFromFile() {
-        try (
-                ObjectInputStream inputStream = new ObjectInputStream(
-                        new FileInputStream("data.bin")
-                );) {
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("data.bin"))) {
             User u = (User) inputStream.readObject();
             messageLabel.setText(u.toString());
-        }
-        catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
             messageLabel.setText("Invalid file format!");
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             messageLabel.setText("Could not read from file");
         }
@@ -92,14 +79,14 @@ public class UserManagementController
 //            return;
 //        }
 
-        for(User u : userList) {
+        for (User u : userList) {
             if (u.getUsername().equals(username)) {
                 messageLabel.setText("This username is not available!");
                 return;
             }
         }
 
-        User user  = new User(username, password, userType);
+        User user = new User(username, password, userType);
         userList.add(user);
         tableView.getItems().add(user);
         messageLabel.setText("User added successfully");
@@ -121,7 +108,7 @@ public class UserManagementController
     }
 
     @FXML
-    public void editUser(ActionEvent actionEvent) throws IOException{
+    public void editUser(ActionEvent actionEvent) throws IOException {
         User user = tableView.getSelectionModel().getSelectedItem();
         if (user != null) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("edit-user.fxml"));
@@ -141,17 +128,36 @@ public class UserManagementController
 
     @FXML
     public void saveUserList(ActionEvent actionEvent) {
-        try (
-        ObjectOutputStream outputStream = new ObjectOutputStream(
-                                                new FileOutputStream("data.bin")
-                                          );
-        ){
-            outputStream.writeObject(userList.getFirst());
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("data.bin"))) {
+            for (User u: userList) {
+                outputStream.writeObject(u);
+            }
             messageLabel.setText("Successfully saved to file.");
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             messageLabel.setText("Could not write to file");
+        }
+    }
+
+    @FXML
+    public void loadUserList(ActionEvent actionEvent) {
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("data.bin"))) {
+            userList.clear();
+            tableView.getItems().clear();
+            while (true) {
+                User u = (User) inputStream.readObject();
+                userList.add(u);
+                tableView.getItems().add(u);
+                System.out.println(u);
+            }
+        } catch (EOFException e) {
+            messageLabel.setText("Successfully loaded data");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            messageLabel.setText("Invalid file format");
+        } catch (IOException e) {
+            e.printStackTrace();
+            messageLabel.setText("Could not load data from file!");
         }
     }
 }
