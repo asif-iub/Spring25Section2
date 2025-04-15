@@ -129,6 +129,7 @@ public class UserManagementController {
     @FXML
     public void saveUserList(ActionEvent actionEvent) {
         try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("data.bin"))) {
+            outputStream.writeObject(userList.size());
             for (User u: userList) {
                 outputStream.writeObject(u);
             }
@@ -144,13 +145,14 @@ public class UserManagementController {
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("data.bin"))) {
             userList.clear();
             tableView.getItems().clear();
-            while (true) {
+            int size = (int) inputStream.readObject();
+//            while (true) {
+            for (int i  = 0; i < size; i++) {
                 User u = (User) inputStream.readObject();
                 userList.add(u);
                 tableView.getItems().add(u);
                 System.out.println(u);
             }
-        } catch (EOFException e) {
             messageLabel.setText("Successfully loaded data");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
