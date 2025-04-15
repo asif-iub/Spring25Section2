@@ -18,7 +18,18 @@ public class UserManagementController {
     static List<User> userList = new ArrayList<>();
 
     static {
-        userList.add(new User("asif", "1234", "admin"));
+//        userList.add(new User("asif", "1234", "admin"));
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("data/user.bin"))) {
+            userList.clear();
+            List< User > loadedList = (List<User>) inputStream.readObject();
+            userList.addAll(loadedList);
+
+//            userList = (List<User>) inputStream.readObject();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @javafx.fxml.FXML
@@ -46,7 +57,7 @@ public class UserManagementController {
         passwordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
         userTypeColumn.setCellValueFactory(new PropertyValueFactory<>("userType"));
 
-//        tableView.getItems().addAll(userList);
+        tableView.getItems().addAll(userList);
 
 //        readFromFile();
     }
@@ -128,7 +139,7 @@ public class UserManagementController {
 
     @FXML
     public void saveUserList(ActionEvent actionEvent) {
-        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("data.bin"))) {
+        try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream("data/user.bin"))) {
             outputStream.writeObject(userList);
             messageLabel.setText("Successfully saved to file.");
         } catch (IOException e) {
@@ -139,7 +150,7 @@ public class UserManagementController {
 
     @FXML
     public void loadUserList(ActionEvent actionEvent) {
-        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("data.bin"))) {
+        try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream("data/user.bin"))) {
             userList.clear();
             tableView.getItems().clear();
 
