@@ -13,7 +13,7 @@ public class HelloApplication extends Application {
         SceneSwitcher.stage = stage;
 
         FXMLLoader fxmlLoader = new FXMLLoader(
-                HelloApplication.class.getResource("charts.fxml")
+                HelloApplication.class.getResource("pdf.fxml")
         );
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("CSE213 - Object Oriented Programming");
